@@ -4,7 +4,6 @@ import { forwardRef, InputHTMLAttributes } from 'react'
 import { cn } from '@/lib/utils'
 import { Label } from './label'
 import { useState } from 'react'
-import { Button } from './button'
 import InputMask from 'react-input-mask'
 import { EyeIcon, EyeOffIcon } from 'lucide-react'
 
@@ -69,7 +68,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             <InputMask
               type={fieldType}
               mask={mask}
-              maskPlaceholder={maskPlaceholder}
+              // maskPlaceholder={maskPlaceholder}
               className="size-full min-w-0 bg-inherit px-2 text-inherit outline-none"
               {...props}
               onChange={handleChange}

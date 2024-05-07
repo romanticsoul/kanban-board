@@ -1,5 +1,5 @@
-import { Bar } from '@/components/Bar'
-import { CreateBar } from '@/components/CreateBar'
+import { Bar } from '@/components/Bar/Bar'
+import { CreateBar } from '@/components/CreateBar/CreateBrand'
 
 export async function BarContainer() {
   // const
@@ -7,12 +7,12 @@ export async function BarContainer() {
 
   return (
     <div className="flex gap-2">
-      <Bar id="1" title="Not Started" />
-      <Bar id="2" title="Ready" />
-      <Bar id="3" title="In Progress" />
-      <Bar id="4" title="Blocked" />
-      <Bar id="5" title="Cancelled" />
-      <CreateBar />
+      <Bar key="1" title="Not Started" />
+      <Bar key="2" title="Ready" />
+      <Bar key="3" title="In Progress" />
+      <Bar key="4" title="Blocked" />
+      <Bar key="5" title="Cancelled" />
+      {/* <CreateBar /> */}
     </div>
   )
 }
