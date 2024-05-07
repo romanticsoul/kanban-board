@@ -1,14 +1,13 @@
 import { revalidatePath } from 'next/cache'
 
-export async function createBarAction(_: any, data: FormData) {
-  const name = data.get('name')
+export async function deleteTaskAction(_: any, data: FormData) {
+  const id = data.get('id')
 
   try {
     const response = await fetch(
-      'https://6638f23d4253a866a24fc563.mockapi.io/bars',
+      `https://6638f23d4253a866a24fc563.mockapi.io/tasks/${id}`,
       {
-        method: 'POST',
-        body: JSON.stringify(name),
+        method: 'Delete',
       }
     )
 

@@ -4,7 +4,6 @@ import { forwardRef, InputHTMLAttributes } from 'react'
 import { cn } from '@/lib/utils'
 import { Label } from './label'
 import { useState } from 'react'
-import InputMask from 'react-input-mask'
 import { EyeIcon, EyeOffIcon } from 'lucide-react'
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
@@ -65,14 +64,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             {props.prependinner && (
               <div className="p-2 pr-0">{props.prependinner}</div>
             )}
-            <InputMask
+            <input
               type={fieldType}
-              mask={mask}
-              // maskPlaceholder={maskPlaceholder}
-              className="size-full min-w-0 bg-inherit px-2 text-inherit outline-none"
-              {...props}
               onChange={handleChange}
               onBlur={handleBlur}
+              className="size-full min-w-0 bg-inherit px-2 text-inherit outline-none"
+              {...props}
             />
             {type === 'password' && (
               <button

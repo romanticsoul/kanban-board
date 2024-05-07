@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { CreateTask } from '@/components/CreateTask/'
+import { CreateTask } from '@/components/CreateTask/CreateTask'
 import { Dialog } from '@/ui/dialog'
 import { Button } from '@/ui/button'
 
