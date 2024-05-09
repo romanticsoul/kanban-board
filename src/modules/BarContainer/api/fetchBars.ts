@@ -1,5 +1,6 @@
+'use server'
 import type { IBar } from './types'
-import { apiUrl } from '../const/apiurl'
+import { apiUrl } from './const/apiurl'
 
 export async function fetchBars() {
   const data: IBar[] = await fetch(`${apiUrl}/bars`, {

@@ -4,10 +4,20 @@ import { Button } from '@/ui/button'
 import { Dialog } from '@/ui/dialog'
 import { useState } from 'react'
 import { CreateTaskForm } from './createTaskForm'
-import type { IBar } from '../api/types'
+import type { IBar, ITask } from '../api/types'
 
-export function CreateTaskButton({ barId }: { barId: IBar['id'] }) {
+type CreateTaskButtonProps = {
+  barId: IBar['id']
+  onCreateTask?: (newTask: ITask) => void
+}
+
+export const CreateTaskButton: React.FC<CreateTaskButtonProps> = (props) => {
   const [showModal, setShowModal] = useState<boolean>(false)
+
+  /**
+   * TODO 1: Перенесите код из компонента CreateTaskForm сюда
+   * TODO 2: При обновлении [state] из хука useFormState вызовите событие props.onCreateTask
+   */
 
   return (
     <>
@@ -19,7 +29,7 @@ export function CreateTaskButton({ barId }: { barId: IBar['id'] }) {
         onClose={() => setShowModal(false)}
         title="Создайте новую задачу"
       >
-        <CreateTaskForm barId={barId} />
+        <CreateTaskForm barId={props.barId} />
       </Dialog>
     </>
   )

@@ -1,22 +1,5 @@
 'use server'
-
-import { revalidatePath } from 'next/cache'
-import { apiUrl } from '../const/apiurl'
-
-export async function deleteTaskAction(_: any, data: FormData) {
-  const id = data.get('id')
-
-  try {
-    const response = await fetch(`${apiUrl}/tasks/${id}`, {
-      method: 'Delete',
-    })
-
-    // revalidatePath('/')
-    return await response.json()
-  } catch (error) {
-    console.error('Error:', error)
-  }
-}
+import { apiUrl } from './const/apiurl'
 
 export async function createTaskAction(_: any, data: FormData) {
   const title = data.get('title')
@@ -38,7 +21,6 @@ export async function createTaskAction(_: any, data: FormData) {
   }
 }
 
-//BAR CREATION ACTION
 export async function createBarAction(_: any, data: FormData) {
   const name = data.get('name')
 

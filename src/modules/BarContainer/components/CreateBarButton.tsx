@@ -4,9 +4,19 @@ import { Button } from '@/ui/button'
 import { Dialog } from '@/ui/dialog'
 import { useState } from 'react'
 import { CreateBarForm } from './CreateBarForm'
+import { IBar } from '../api/types'
 
-export function CreateBarButton() {
+type CreateBarButtonProps = {
+  onCreateBar?: (newBar: IBar) => void
+}
+
+export const CreateBarButton: React.FC<CreateBarButtonProps> = (props) => {
   const [showModal, setShowModal] = useState<boolean>(false)
+
+  /**
+   * TODO 1: Перенесите код из компонента CreateBarForm сюда
+   * TODO 2: При обновлении [state] из хука useFormState вызовите событие props.onCreateBar
+   */
 
   return (
     <>
