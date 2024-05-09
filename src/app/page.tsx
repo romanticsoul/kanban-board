@@ -3,7 +3,7 @@ import { BarContainer } from '@/modules/BarContainer'
 
 export default function Home() {
   return (
-    <main className="container flex h-screen">
+    <main className="flex-1">
       <BarContainer />
     </main>
   )

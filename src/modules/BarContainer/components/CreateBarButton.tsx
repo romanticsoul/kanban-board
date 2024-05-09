@@ -3,7 +3,7 @@
 import { Button } from '@/ui/button'
 import { Dialog } from '@/ui/dialog'
 import { useState } from 'react'
-import { CreateBarForm } from './CreateBarForm'
+import { CreateBarForm } from './createBarForm'
 import { IBar } from '../api/types'
 
 type CreateBarButtonProps = {
@@ -20,7 +20,7 @@ export const CreateBarButton: React.FC<CreateBarButtonProps> = (props) => {
 
   return (
     <>
-      <Button onClick={() => setShowModal(true)} variant="transparent">
+      <Button onClick={() => setShowModal(true)} variant="primary">
         + новая колонка
       </Button>
       <Dialog

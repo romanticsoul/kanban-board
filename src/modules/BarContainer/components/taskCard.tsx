@@ -3,25 +3,38 @@
 import type { ITask } from '../api/types'
 import { XIcon } from 'lucide-react'
 import { removeTask } from '../api/removeTask'
-import { useDraggable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
+import { useSortable } from '@dnd-kit/sortable'
 
-type TaskCardProps = ITask & {
+type TaskCardProps = {
+  task: ITask
   onRemoveTask?: (id: ITask['id']) => void
 }
 
-export const TaskCard: React.FC<TaskCardProps> = ({ id, ...props }) => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: `draggable-task-${id}`,
+export const TaskCard: React.FC<TaskCardProps> = ({ task, ...props }) => {
+  const {
+    setNodeRef,
+    attributes,
+    listeners,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: `task-${task.id}`,
+    data: {
+      type: 'Task',
+      task,
+    },
   })
 
   const style = {
-    transform: CSS.Translate.toString(transform),
+    transform: CSS.Transform.toString(transform),
+    transition,
   }
 
   return (
     <div
-      className="rounded border-2 bg-card p-2"
+      className="relative rounded border-2 bg-card p-2"
       ref={setNodeRef}
       style={style}
       {...listeners}
@@ -29,20 +42,17 @@ export const TaskCard: React.FC<TaskCardProps> = ({ id, ...props }) => {
     >
       <div className="flex justify-between">
         <h3 className="font-bold">
-          {id}. {props.title}
+          {task.id}. {task.title}
         </h3>
 
         <button
-          onClick={async () => {
-            await removeTask(id)
-            props.onRemoveTask?.(id)
-          }}
+          onClick={() => props.onRemoveTask?.(task.id)}
           className="flex size-4 items-center justify-center"
         >
           <XIcon className="size-3" />
         </button>
       </div>
-      <p className="text-muted-foreground">{props.description}</p>
+      <p className="text-muted-foreground">{task.description}</p>
     </div>
   )
 }
