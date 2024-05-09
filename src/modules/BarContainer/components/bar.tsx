@@ -1,11 +1,10 @@
 'use client'
 
 import type { IBar, ITask } from '../api/types'
-import { removeBar } from '../api/removeBar'
 import { CreateTaskButton } from './createTaskButton'
 import { Trash2 } from 'lucide-react'
 import { TaskCard } from './taskCard'
-import { useMemo } from 'react'
+import {  useMemo } from 'react'
 import { CSS } from '@dnd-kit/utilities'
 import { SortableContext, useSortable } from '@dnd-kit/sortable'
 
@@ -14,10 +13,12 @@ type BarProps = {
   tasks: ITask[]
   onRemoveBar?: (barId: IBar['id']) => void
   onRemoveTask?: (taskId: ITask['id']) => void
-  onCreateTask?: (newTask: ITask) => void
+  onCreateTask: (newTask: ITask) => void
 }
 
 export const Bar: React.FC<BarProps> = ({ bar, tasks, ...props }) => {
+  
+
   const {
     setNodeRef,
     attributes,
@@ -46,7 +47,7 @@ export const Bar: React.FC<BarProps> = ({ bar, tasks, ...props }) => {
   return (
     <div
       ref={setNodeRef}
-      className="flex min-w-48 flex-1 flex-col"
+      className="flex min-w-48 max-w-64 flex-1 flex-col"
       style={style}
     >
       <div

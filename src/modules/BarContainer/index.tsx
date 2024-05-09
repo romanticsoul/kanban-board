@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState, useMemo, useContext } from 'react'
 import type { IBar, ITask } from './api/types'
 import { removeBar } from './api/removeBar'
 import { removeTask } from './api/removeTask'
@@ -17,10 +17,11 @@ import {
 } from '@dnd-kit/core'
 import { SortableContext, arrayMove } from '@dnd-kit/sortable'
 import { Bar } from './components/bar'
-import { CreateBarButton } from './components/createBarButton'
+import { CreateBarButton } from './components/CreateBarButton'
 
-export function BarContainer() {
+export const BarContainer = () => { 
   const [bars, setBars] = useState<IBar[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
   const [tasks, setTasks] = useState<ITask[]>([])
   const [activeBar, setActiveBar] = useState<IBar | null>(null)
   const [activeTask, setActiveTask] = useState<ITask | null>(null)
@@ -37,12 +38,16 @@ export function BarContainer() {
 
   useEffect(() => {
     ;(async () => {
+      removeBar('9')
       const bars = await fetchBars()
       const tasks = await fetchTasks()
       setBars(bars)
       setTasks(tasks)
+      setLoading(false)
     })()
   }, [])
+
+if (loading) return <div>Загрузка...</div>
 
   return (
     <div className="relative flex size-full flex-col overflow-x-auto overflow-y-hidden p-8">

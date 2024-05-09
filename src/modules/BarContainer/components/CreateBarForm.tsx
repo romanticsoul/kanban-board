@@ -1,13 +1,11 @@
 'use client'
 
-import { createBarAction } from '../api/actions'
 import { Label } from '@/ui/label'
 import { Input } from '@/ui/input'
 import { Button } from '@/ui/button'
-import { useFormState } from 'react-dom'
 
-export const CreateBarForm = () => {
-  const [state, formAction] = useFormState(createBarAction, null)
+export const CreateBarForm = ({formAction}: {formAction: (payload: FormData) => void}) => {
+  
 
   return (
     <form action={formAction}>

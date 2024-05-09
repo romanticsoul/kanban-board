@@ -1,15 +1,12 @@
 'use client'
 
 import type { IBar } from '../api/types'
-import { createTaskAction } from '../api/actions'
 import { Textarea } from '@/ui/textarea'
 import { Label } from '@/ui/label'
 import { Input } from '@/ui/input'
 import { Button } from '@/ui/button'
-import { useFormState } from 'react-dom'
 
-export const CreateTaskForm = ({ barId }: { barId: IBar['id'] }) => {
-  const [state, formAction] = useFormState(createTaskAction, null)
+export const CreateTaskForm = ({ barId, formAction }: { barId: IBar['id'], formAction: (payload: FormData) => void }) => {
 
   return (
     <form action={formAction}>

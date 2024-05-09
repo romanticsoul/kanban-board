@@ -2,21 +2,25 @@
 
 import { Button } from '@/ui/button'
 import { Dialog } from '@/ui/dialog'
-import { useState } from 'react'
-import { CreateBarForm } from './createBarForm'
+import { useEffect, useState } from 'react'
 import { IBar } from '../api/types'
+import { CreateBarForm } from './CreateBarForm'
+import { createBarAction } from '../api/actions'
+import { useFormState } from 'react-dom'
 
 type CreateBarButtonProps = {
-  onCreateBar?: (newBar: IBar) => void
+  onCreateBar: (newBar: IBar) => void
 }
 
 export const CreateBarButton: React.FC<CreateBarButtonProps> = (props) => {
+  const [state, formAction] = useFormState(createBarAction, null)
   const [showModal, setShowModal] = useState<boolean>(false)
 
-  /**
-   * TODO 1: Перенесите код из компонента CreateBarForm сюда
-   * TODO 2: При обновлении [state] из хука useFormState вызовите событие props.onCreateBar
-   */
+  useEffect(() => {
+    if (state) {
+      props.onCreateBar(state)    
+    }
+  }, [state])
 
   return (
     <>
@@ -28,7 +32,7 @@ export const CreateBarButton: React.FC<CreateBarButtonProps> = (props) => {
         onClose={() => setShowModal(false)}
         title="Создайте новую колонку"
       >
-        <CreateBarForm />
+        <CreateBarForm formAction={formAction} />
       </Dialog>
     </>
   )
