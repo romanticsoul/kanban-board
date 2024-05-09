@@ -30,17 +30,14 @@ export const Dialog = forwardRef<HTMLDialogElement, DialogProps>(
       >
         {header || (
           <div className="sticky top-0 z-10 flex items-center border-b-2 bg-inherit p-4">
-            {title}
+            {title && <h3 className="font-bold">{title}</h3>}
 
             <Button
-              variant="primary"
+              variant="transparent"
               size="sm"
               className="ml-auto aspect-square self-start p-0"
               onClick={() => dialogRef.current?.close()}
             >
-              {/* <button type="button" className="sr-only">
-                Закрыть
-              </button> */}
               <XIcon className="size-5" />
             </Button>
           </div>

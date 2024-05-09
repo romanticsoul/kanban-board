@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, forwardRef, useMemo } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
-const buttonVariants = cva('font-medium', {
+const buttonVariants = cva('rounded font-medium', {
   variants: {
     variant: {
       primary:
@@ -18,6 +18,7 @@ const buttonVariants = cva('font-medium', {
   },
   defaultVariants: {
     variant: 'secondary',
+    size: 'sm',
   },
 })
 
@@ -27,8 +28,8 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ variant, size, className, ...props }, ref) => {
     const cname = useMemo(
-      () => cn(buttonVariants({ variant }), className),
-      [variant, className]
+      () => cn(buttonVariants({ variant, size }), className),
+      [variant, size, className]
     )
     return <button ref={ref} className={cname} {...props} />
   }
