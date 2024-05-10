@@ -4,7 +4,8 @@ import { cn } from '@/lib/utils'
 import './globals.css'
 
 const fontSans = FontSans({
-  subsets: ['latin'],
+  subsets: ['latin', 'cyrillic'],
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
   variable: '--font-sans',
 })
 
@@ -22,7 +23,7 @@ export default function RootLayout({
     <html lang="ru">
       <body
         className={cn(
-          'flex min-h-screen bg-background font-sans antialiased',
+          'flex min-h-screen overflow-hidden bg-background font-sans antialiased',
           fontSans.variable
         )}
       >

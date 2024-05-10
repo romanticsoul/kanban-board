@@ -7,26 +7,27 @@ import { CreateTaskForm } from './createTaskForm'
 import type { IBar, ITask } from '../api/types'
 import { useFormState } from 'react-dom'
 import { createTaskAction } from '../api/actions'
+import { PlusCircle } from 'lucide-react'
 
 type CreateTaskButtonProps = {
   barId: IBar['id']
-  onCreateTask: (newTask: ITask) => void
+  onCreateTask?: (newTask: ITask) => void
 }
 
 export const CreateTaskButton: React.FC<CreateTaskButtonProps> = (props) => {
-   const [state, formAction] = useFormState(createTaskAction, null)
+  const [state, formAction] = useFormState(createTaskAction, null)
   const [showModal, setShowModal] = useState<boolean>(false)
 
-   useEffect(() => {
+  useEffect(() => {
     if (state) {
-      props.onCreateTask(state)    
+      props.onCreateTask?.(state)
     }
   }, [state])
 
   return (
     <>
       <Button onClick={() => setShowModal(true)} variant="transparent">
-        +
+        <PlusCircle className="size-5" />
       </Button>
       <Dialog
         open={showModal}

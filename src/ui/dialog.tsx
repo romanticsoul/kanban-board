@@ -24,7 +24,7 @@ export const Dialog = forwardRef<HTMLDialogElement, DialogProps>(
 
     return (
       <dialog
-        className="w-1/2 min-w-72 max-w-lg appearance-none rounded-lg border-2 border-primary/20 bg-card shadow-lg transition-all duration-300"
+        className="z-50 w-1/2 min-w-72 max-w-lg appearance-none rounded-lg border-2 border-primary/20 bg-card shadow-lg transition-all duration-300"
         ref={dialogRef}
         {...props}
       >

@@ -7,6 +7,7 @@ import { IBar } from '../api/types'
 import { CreateBarForm } from './CreateBarForm'
 import { createBarAction } from '../api/actions'
 import { useFormState } from 'react-dom'
+import { PlusCircleIcon } from 'lucide-react'
 
 type CreateBarButtonProps = {
   onCreateBar: (newBar: IBar) => void
@@ -18,14 +19,18 @@ export const CreateBarButton: React.FC<CreateBarButtonProps> = (props) => {
 
   useEffect(() => {
     if (state) {
-      props.onCreateBar(state)    
+      props.onCreateBar(state)
     }
   }, [state])
 
   return (
     <>
-      <Button onClick={() => setShowModal(true)} variant="primary">
-        + новая колонка
+      <Button
+        onClick={() => setShowModal(true)}
+        variant="primary"
+        className="flex items-center gap-2"
+      >
+        <PlusCircleIcon className="size-5" /> Новая колонка
       </Button>
       <Dialog
         open={showModal}
