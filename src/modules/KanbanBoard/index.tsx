@@ -12,7 +12,6 @@ import {
   useSensor,
   DragOverlay,
   PointerSensor,
-  KeyboardSensor,
   closestCenter,
   type DragEndEvent,
   type DragOverEvent,
@@ -21,7 +20,6 @@ import {
 import {
   SortableContext,
   arrayMove,
-  sortableKeyboardCoordinates,
   horizontalListSortingStrategy,
 } from '@dnd-kit/sortable'
 import { Bar } from './components/bar'
@@ -45,9 +43,6 @@ export const KanbanBoard = () => {
       activationConstraint: {
         distance: 10,
       },
-    }),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
     })
   )
 
@@ -97,8 +92,10 @@ export const KanbanBoard = () => {
                   totalTaskLength={tasks.length}
                   tasks={tasks.filter((task) => task.barId === bar.id)}
                   onCreateTask={handleCreateTask}
+                  onUpdateBar={handleUpdateBar}
                   onRemoveBar={handleRemoveBar}
                   onRemoveTask={handleRemoveTask}
+                  onUpdateTask={handleUpdateTask}
                 />
               ))}
           </SortableContext>
@@ -132,14 +129,25 @@ export const KanbanBoard = () => {
     setTasks([...tasks, newTask])
   }
 
-  function handleCreateBar(newBar: IBar) {
-    setBars((prev) => [...prev, newBar])
-  }
-
   async function handleRemoveTask(taskId: ITask['id']) {
     await updateTasksState(tasks.filter((task) => task.id !== taskId))
     const barId = tasks.find((task) => task.id === taskId)!.barId
     await removeTask(taskId, barId)
+  }
+
+  async function handleUpdateTask(task: ITask) {
+    setTasks(
+      tasks.map((item) => {
+        if (task.id == item.id) {
+          return task
+        }
+        return item
+      })
+    )
+  }
+
+  function handleCreateBar(newBar: IBar) {
+    setBars((prev) => [...prev, newBar])
   }
 
   async function handleRemoveBar(barId: IBar['id']) {
@@ -150,6 +158,17 @@ export const KanbanBoard = () => {
       await removeTask(task.id, barId)
     }
     await removeBar(barId)
+  }
+
+  function handleUpdateBar(bar: IBar) {
+    setBars(
+      bars.map((item) => {
+        if (bar.id == item.id) {
+          return bar
+        }
+        return item
+      })
+    )
   }
 
   function handleDragStart(event: DragStartEvent) {

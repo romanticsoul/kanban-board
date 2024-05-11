@@ -2,7 +2,7 @@
 
 import type { IBar, ITask } from '../api/types'
 import { CreateTaskButton } from './createTaskButton'
-import { Trash2, GripVerticalIcon } from 'lucide-react'
+import { Trash2, GripVerticalIcon, Pencil } from 'lucide-react'
 import { CSS } from '@dnd-kit/utilities'
 import {
   useSortable,
@@ -11,6 +11,7 @@ import {
 } from '@dnd-kit/sortable'
 import { TaskCard } from './taskCard'
 import { useMemo } from 'react'
+import { UpdateBarButton } from './updateBarButton'
 
 type BarProps = {
   dndId: string
@@ -18,9 +19,11 @@ type BarProps = {
   tasks: ITask[]
   totalTaskLength: number
   children?: React.ReactNode
+  onUpdateBar?: (updatedBar: IBar) => void
   onRemoveBar?: (barId: IBar['id']) => void
   onRemoveTask?: (taskId: ITask['id']) => void
   onCreateTask?: (newTask: ITask) => void
+  onUpdateTask?: (updatedTask: ITask) => void
 }
 
 export const Bar: React.FC<BarProps> = ({ dndId, bar, tasks, ...props }) => {
@@ -72,6 +75,7 @@ export const Bar: React.FC<BarProps> = ({ dndId, bar, tasks, ...props }) => {
           {bar.order}, {bar.name}
         </h2>
         <div className="ml-auto flex">
+          <UpdateBarButton bar={bar} onUpdateBar={props.onUpdateBar} />
           <CreateTaskButton
             barId={bar.id}
             onCreateTask={props.onCreateTask}
@@ -83,7 +87,7 @@ export const Bar: React.FC<BarProps> = ({ dndId, bar, tasks, ...props }) => {
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col gap-2 overflow-y-scroll bg-muted p-2">
+      <div className="flex flex-1 flex-col gap-2 overflow-y-auto bg-muted p-2">
         <SortableContext items={tasksId} strategy={verticalListSortingStrategy}>
           {tasks.map((task) => (
             <TaskCard
@@ -91,6 +95,7 @@ export const Bar: React.FC<BarProps> = ({ dndId, bar, tasks, ...props }) => {
               key={task.id}
               task={task}
               onRemoveTask={props.onRemoveTask}
+              onUpdateTask={props.onUpdateTask}
             />
           ))}
         </SortableContext>

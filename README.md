@@ -19,6 +19,6 @@ npm lint
 
 1. [@romanticsoul](https://github.com/romanticsoul): Создание Drag&Drop функционала, создание API и сохранение позиции элементов в API (получилось не очень).
 
-2. [@nickshefer](https://github.com/nickshefer): Создание форм для добавления задачи и колонки, реализация функционала создания задач в API
+2. [@nickshefer](https://github.com/nickshefer): Создание форм для добавления, обновления задачи и колонки, реализация функционала создания, обновления задач и колонок в API
 
 3. [@weltvernunft](https://github.com/weltvernunft): Разработка дизайна Kanban доски. Помощь в создании форм, реализация функционала удаления задач из API

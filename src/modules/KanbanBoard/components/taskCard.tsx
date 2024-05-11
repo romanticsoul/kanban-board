@@ -1,14 +1,16 @@
 'use client'
 
 import type { ITask } from '../api/types'
-import { XIcon } from 'lucide-react'
+import { XIcon, Pencil } from 'lucide-react'
 import { CSS } from '@dnd-kit/utilities'
 import { useSortable } from '@dnd-kit/sortable'
+import { UpdateTaskButton } from './updateTaskButton'
 
 type TaskCardProps = {
   dndId: string
   task: ITask
   onRemoveTask?: (id: ITask['id']) => void
+  onUpdateTask?: (updatedTask: ITask) => void
 }
 
 export const TaskCard: React.FC<TaskCardProps> = ({
@@ -47,13 +49,14 @@ export const TaskCard: React.FC<TaskCardProps> = ({
           <h3 className="font-bold">
             {task.id}. {task.title}
           </h3>
-
-          <button
-            onClick={() => props.onRemoveTask?.(task.id)}
-            className="flex size-4 items-center justify-center"
-          >
-            <XIcon className="size-3" />
-          </button>
+          <div>
+            <button
+              onClick={() => props.onRemoveTask?.(task.id)}
+              className="flex size-4 items-center justify-center"
+            >
+              <XIcon className="size-3" />
+            </button>
+          </div>
         </div>
         <p className="invisible text-xs font-medium text-muted-foreground">
           {task.description}
@@ -71,17 +74,27 @@ export const TaskCard: React.FC<TaskCardProps> = ({
       {...attributes}
     >
       <div className="flex justify-between">
-        <h3 className="font-bold">
-          {task.order}, {task.title}, {dndId}
+        <h3 className="font-bold leading-5">
+          {task.order}, {task.title}
         </h3>
-        <button
-          onClick={() => props.onRemoveTask?.(task.id)}
-          className="flex size-4 items-center justify-center"
-        >
-          <XIcon className="size-3" />
-        </button>
+        <div className="flex flex-col justify-start gap-1">
+          <button
+            onClick={() => props.onRemoveTask?.(task.id)}
+            className="flex size-4 items-center justify-center"
+          >
+            <XIcon className="size-3" />
+          </button>
+          <UpdateTaskButton
+            barId={task.barId}
+            taskOrder={task.order}
+            onUpdateTask={props.onUpdateTask}
+            titleInit={task.title}
+            descInit={task.description}
+            taskId={task.id}
+          />
+        </div>
       </div>
-      <p className="text-xs font-medium text-muted-foreground">
+      <p className="mt-4 text-xs font-medium text-muted-foreground">
         {task.description}
       </p>
     </div>
