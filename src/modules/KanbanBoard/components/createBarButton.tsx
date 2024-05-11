@@ -1,35 +1,34 @@
 'use client'
 
+import type { IBar } from '../api/types'
 import { Button } from '@/ui/button'
 import { Dialog } from '@/ui/dialog'
 import { useEffect, useState } from 'react'
-import { IBar } from '../api/types'
-import { CreateBarForm } from './CreateBarForm'
+import { CreateBarForm } from './createBarForm'
 import { createBarAction } from '../api/actions'
 import { useFormState } from 'react-dom'
 import { PlusCircleIcon } from 'lucide-react'
 
 type CreateBarButtonProps = {
+  barOrder: IBar['order']
   onCreateBar: (newBar: IBar) => void
 }
 
-export const CreateBarButton: React.FC<CreateBarButtonProps> = (props) => {
+export const CreateBarButton: React.FC<CreateBarButtonProps> = ({
+  barOrder,
+  onCreateBar,
+}) => {
   const [state, formAction] = useFormState(createBarAction, null)
   const [showModal, setShowModal] = useState<boolean>(false)
 
   useEffect(() => {
-    if (state) {
-      props.onCreateBar(state)
-    }
+    if (state) onCreateBar(state)
+    setShowModal(false)
   }, [state])
 
   return (
     <>
-      <Button
-        onClick={() => setShowModal(true)}
-        variant="primary"
-        className="flex items-center gap-2"
-      >
+      <Button onClick={() => setShowModal(true)} variant="primary">
         <PlusCircleIcon className="size-5" /> Новая колонка
       </Button>
       <Dialog
@@ -37,7 +36,7 @@ export const CreateBarButton: React.FC<CreateBarButtonProps> = (props) => {
         onClose={() => setShowModal(false)}
         title="Создайте новую колонку"
       >
-        <CreateBarForm formAction={formAction} />
+        <CreateBarForm barOrder={barOrder} formAction={formAction} />
       </Dialog>
     </>
   )

@@ -1,10 +1,11 @@
 'use server'
-import { apiUrl } from './const/apiurl'
+import { apiUrl } from './const/apiUrl'
 
 export async function createTaskAction(_: any, data: FormData) {
   const title = data.get('title')
   const description = data.get('description')
-  const bar_id = data.get('bar_id')
+  const barId = data.get('barId')
+  const order = data.get('order')
 
   try {
     const response = await fetch(`${apiUrl}/tasks`, {
@@ -12,7 +13,7 @@ export async function createTaskAction(_: any, data: FormData) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ bar_id, title, description, order: 10 }),
+      body: JSON.stringify({ barId, title, description, order }),
     })
 
     return await response.json()
@@ -23,6 +24,7 @@ export async function createTaskAction(_: any, data: FormData) {
 
 export async function createBarAction(_: any, data: FormData) {
   const name = data.get('name')
+  const order = data.get('order')
 
   try {
     const response = await fetch(`${apiUrl}/bars`, {
@@ -30,7 +32,7 @@ export async function createBarAction(_: any, data: FormData) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name }),
+      body: JSON.stringify({ name, order }),
     })
 
     return await response.json()

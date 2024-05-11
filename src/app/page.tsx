@@ -1,9 +1,9 @@
-import { BarContainer } from '@/modules/BarContainer'
+import { KanbanBoard } from '@/modules/KanbanBoard'
 
 export default function Home() {
   return (
     <main className="h-screen w-screen">
-      <BarContainer />
+      <KanbanBoard />
     </main>
   )
 }

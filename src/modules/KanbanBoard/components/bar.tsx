@@ -2,7 +2,7 @@
 
 import type { IBar, ITask } from '../api/types'
 import { CreateTaskButton } from './createTaskButton'
-import { Trash2, GripVertical } from 'lucide-react'
+import { Trash2, GripVerticalIcon } from 'lucide-react'
 import { CSS } from '@dnd-kit/utilities'
 import {
   useSortable,
@@ -11,12 +11,12 @@ import {
 } from '@dnd-kit/sortable'
 import { TaskCard } from './taskCard'
 import { useMemo } from 'react'
-import { cn } from '@/lib/utils'
 
 type BarProps = {
   dndId: string
   bar: IBar
   tasks: ITask[]
+  totalTaskLength: number
   children?: React.ReactNode
   onRemoveBar?: (barId: IBar['id']) => void
   onRemoveTask?: (taskId: ITask['id']) => void
@@ -39,7 +39,7 @@ export const Bar: React.FC<BarProps> = ({ dndId, bar, tasks, ...props }) => {
     },
   })
 
-  const tasksIds = useMemo(() => tasks.map((t) => `task-${t.id}`), [tasks])
+  const tasksId = useMemo(() => tasks.map((task) => `task-${task.id}`), [tasks])
 
   const style = {
     transition,
@@ -64,15 +64,19 @@ export const Bar: React.FC<BarProps> = ({ dndId, bar, tasks, ...props }) => {
     >
       <div className="flex items-center border-b-2 bg-card p-2">
         <h2 className="flex items-center gap-2 text-sm font-bold">
-          <GripVertical
+          <GripVerticalIcon
             {...attributes}
             {...listeners}
             className="size-5 text-muted-foreground"
           />
-          {bar.name}
+          {bar.order}, {bar.name}
         </h2>
-        <div className="ml-auto">
-          <CreateTaskButton barId={bar.id} onCreateTask={props.onCreateTask} />
+        <div className="ml-auto flex">
+          <CreateTaskButton
+            barId={bar.id}
+            onCreateTask={props.onCreateTask}
+            taskOrder={props.totalTaskLength + 1}
+          />
           <button onClick={() => props.onRemoveBar?.(bar.id)}>
             <Trash2 className="size-5" />
           </button>
@@ -80,20 +84,15 @@ export const Bar: React.FC<BarProps> = ({ dndId, bar, tasks, ...props }) => {
       </div>
 
       <div className="flex flex-1 flex-col gap-2 overflow-y-scroll bg-muted p-2">
-        <SortableContext
-          items={tasksIds}
-          strategy={verticalListSortingStrategy}
-        >
-          {tasks
-            .filter((task) => task.bar_id === bar.id)
-            .map((task) => (
-              <TaskCard
-                dndId={`task-${task.id}`}
-                key={task.id}
-                task={task}
-                onRemoveTask={props.onRemoveTask}
-              />
-            ))}
+        <SortableContext items={tasksId} strategy={verticalListSortingStrategy}>
+          {tasks.map((task) => (
+            <TaskCard
+              dndId={`task-${task.id}`}
+              key={task.id}
+              task={task}
+              onRemoveTask={props.onRemoveTask}
+            />
+          ))}
         </SortableContext>
       </div>
     </div>

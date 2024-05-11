@@ -11,6 +11,7 @@ import { PlusCircle } from 'lucide-react'
 
 type CreateTaskButtonProps = {
   barId: IBar['id']
+  taskOrder: ITask['order']
   onCreateTask?: (newTask: ITask) => void
 }
 
@@ -21,12 +22,17 @@ export const CreateTaskButton: React.FC<CreateTaskButtonProps> = (props) => {
   useEffect(() => {
     if (state) {
       props.onCreateTask?.(state)
+      setShowModal(false)
     }
   }, [state])
 
   return (
     <>
-      <Button onClick={() => setShowModal(true)} variant="transparent">
+      <Button
+        onClick={() => setShowModal(true)}
+        variant="transparent"
+        className="aspect-square p-2"
+      >
         <PlusCircle className="size-5" />
       </Button>
       <Dialog
@@ -34,7 +40,11 @@ export const CreateTaskButton: React.FC<CreateTaskButtonProps> = (props) => {
         onClose={() => setShowModal(false)}
         title="Создайте новую задачу"
       >
-        <CreateTaskForm formAction={formAction} barId={props.barId} />
+        <CreateTaskForm
+          formAction={formAction}
+          barId={props.barId}
+          taskOrder={props.taskOrder}
+        />
       </Dialog>
     </>
   )

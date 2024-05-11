@@ -72,9 +72,8 @@ export const TaskCard: React.FC<TaskCardProps> = ({
     >
       <div className="flex justify-between">
         <h3 className="font-bold">
-          {dndId}. {task.bar_id}
+          {task.order}, {task.title}, {dndId}
         </h3>
-
         <button
           onClick={() => props.onRemoveTask?.(task.id)}
           className="flex size-4 items-center justify-center"
