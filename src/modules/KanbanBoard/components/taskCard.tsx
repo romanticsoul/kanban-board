@@ -44,9 +44,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
         className="relative rounded border-2 border-primary bg-card p-2"
       >
         <div className="invisible flex justify-between">
-          <h3 className="font-bold">
-            {task.id}. {task.title}
-          </h3>
+          <h3 className="font-bold">{task.title}</h3>
 
           <button
             onClick={() => props.onRemoveTask?.(task.id)}
@@ -71,9 +69,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
       {...attributes}
     >
       <div className="flex justify-between">
-        <h3 className="font-bold">
-          {task.order}, {task.title}, {dndId}
-        </h3>
+        <h3 className="font-bold">{task.title}</h3>
         <button
           onClick={() => props.onRemoveTask?.(task.id)}
           className="flex size-4 items-center justify-center"
