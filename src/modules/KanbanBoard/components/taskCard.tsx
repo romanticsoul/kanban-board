@@ -49,14 +49,13 @@ export const TaskCard: React.FC<TaskCardProps> = ({
           <h3 className="font-bold">
             {task.id}. {task.title}
           </h3>
-          <div>
-            <button
-              onClick={() => props.onRemoveTask?.(task.id)}
-              className="flex size-4 items-center justify-center"
-            >
-              <XIcon className="size-3" />
-            </button>
-          </div>
+
+          <button
+            onClick={() => props.onRemoveTask?.(task.id)}
+            className="flex size-4 items-center justify-center"
+          >
+            <XIcon className="size-3" />
+          </button>
         </div>
         <p className="invisible text-xs font-medium text-muted-foreground">
           {task.description}

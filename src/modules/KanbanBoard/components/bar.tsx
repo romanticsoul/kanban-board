@@ -72,7 +72,7 @@ export const Bar: React.FC<BarProps> = ({ dndId, bar, tasks, ...props }) => {
             {...listeners}
             className="size-5 text-muted-foreground"
           />
-          {bar.order}, {bar.name}
+          {bar.name}
         </h2>
         <div className="ml-auto flex">
           <UpdateBarButton bar={bar} onUpdateBar={props.onUpdateBar} />
